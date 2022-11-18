@@ -1,5 +1,8 @@
 FROM node:16-buster as dev
 
+# set ssl false for work environment
+RUN npm config set strict-ssl false
+
 COPY ./frontend /app
 WORKDIR /app
 EXPOSE 3000
