@@ -1,55 +1,13 @@
 version: '3.9'
 
 services:
-  mongo:
-    image: mongo
-    container_name: mongodb
-    restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
-    volumes:
-      - mongodb:/data/db
-    ports:
-      - "27017:27017"
-
-  mongo-express:
-    image: mongo-express
-    container_name: mongo-express
-    restart: always
-    ports:
-      - 8001:8081
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_USER}
-      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_PASSWORD}
-      ME_CONFIG_MONGODB_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/
-
-  fastapi:
-    build:
-      context: .
-      dockerfile: ./deploy/backend/Dockerfile
-      target: dev
-    container_name: fastapi
-    image: farm-template:backend
-    volumes:
-      - ./backend:/app
-    ports:
-      - 8000:80
-    environment:
-      RELOAD: 'true'
-      AUTH_SECRET: '9e2eafc85e356114ea5fc5d0077a754a9de157c5dc81d8714696917e25c7cd73'
-      MONGODB_HOST: mongo
-      MONGODB_PORT: '27017'
-      MONGODB_USER: ${MONGO_USER}
-      MONGODB_PASSWORD: ${MONGO_PASSWORD}
-      
   react:
     build:
       context: .
       dockerfile: ./deploy/frontend/Dockerfile
       target: dev
     container_name: react
-    image: farm-template:frontend
+    image: nakama-ui:frontend
     volumes:
       - ./frontend:/app
     ports:
