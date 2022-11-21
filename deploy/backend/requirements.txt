@@ -9,3 +9,4 @@ pydantic >= 1.10.1
 python-multipart >= 0.0.5
 aiofiles >= 0.8.0
 pytz
+requests

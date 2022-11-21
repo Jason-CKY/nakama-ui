@@ -44,12 +44,9 @@ services:
       MONGODB_PORT: '27017'
       MONGODB_USER: ${MONGO_USER}
       MONGODB_PASSWORD: ${MONGO_PASSWORD}
-      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
-      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
-      MINIO_BUCKET_NAME: ${MINIO_BUCKET_NAME}
       MINIO_URL: "http://minio:9000"
     env_file:
-      - ./config/server.env
+      - ./config/app.env
 
   react:
     build:
@@ -65,7 +62,7 @@ services:
     environment:
       GENERATE_SOURCEMAP: "false"   # https://github.com/facebook/create-react-app/pull/11752
     env_file:
-     - ./config/client.env
+     - ./config/app.env
 
 volumes:
   minio_volume: {}
