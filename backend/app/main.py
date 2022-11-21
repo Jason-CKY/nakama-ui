@@ -45,7 +45,7 @@ def root():
 
 
 @app.post("/api/token")
-def get_github_token(code: str = Form(), code_verifier: str = Form()):
+def get_gitlab_token(code: str = Form(), code_verifier: str = Form()):
     parameters = {
         "client_id": settings.client_id,
         "client_secret": settings.client_secret,
