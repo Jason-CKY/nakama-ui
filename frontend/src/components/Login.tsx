@@ -2,8 +2,7 @@ import React from 'react';
 import { useToggle, upperFirst } from '@mantine/hooks';
 import { useForm } from '@mantine/form';
 import { TextInput, PasswordInput, Text, Paper, Group, PaperProps, Button, Divider, Checkbox, Anchor, Stack } from '@mantine/core';
-// import { GoogleButton, TwitterButton } from '../SocialButtons/SocialButtons';
-import { AiFillGitlab } from 'react-icons/ai';
+import { GithubButton, GitlabButton } from './SocialButtons';
 
 export function Login(props: PaperProps) {
     const [type, toggle] = useToggle(['login', 'register']);
@@ -24,12 +23,12 @@ export function Login(props: PaperProps) {
     return (
         <Paper radius="md" p="xl" withBorder className="place-self-center w-[500px]" {...props}>
             <Text size="lg" weight={500}>
-                Welcome to Mantine, {type} with
+                Welcome to Nakama, {type} with
             </Text>
 
             <Group grow mb="md" mt="md">
-                <AiFillGitlab radius="xl">Google</AiFillGitlab>
-                <AiFillGitlab radius="xl">Twitter</AiFillGitlab>
+                <GithubButton radius="xl">Github</GithubButton>
+                <GitlabButton radius="xl">Gitlab</GitlabButton>
             </Group>
 
             <Divider label="Or continue with email" labelPosition="center" my="lg" />
