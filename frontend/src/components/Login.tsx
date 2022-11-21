@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import { Text, Paper, Group, PaperProps } from '@mantine/core';
 import { GitlabButton } from './SocialButtons';
 import { AuthContext, IAuthContext } from 'react-oauth2-code-pkce';
+import jwt_decode from 'jwt-decode';
 
 export function Login(props: PaperProps) {
-    const { token, login, logOut, error }: IAuthContext = useContext(AuthContext);
-
+    const { idToken, token, login, logOut, error }: IAuthContext = useContext(AuthContext);
     if (error) {
         return (
             <>
@@ -32,6 +32,21 @@ export function Login(props: PaperProps) {
                             }}
                         >
                             {token}
+                        </pre>
+                    </div>
+                    <div>
+                        <h4>Gitlab ID Token (Decoded)</h4>
+                        <pre
+                            style={{
+                                width: '400px',
+                                margin: '10px',
+                                padding: '5px',
+                                border: 'black 2px solid',
+                                wordBreak: 'break-all',
+                                whiteSpace: 'break-spaces'
+                            }}
+                        >
+                            {JSON.stringify(jwt_decode(idToken!), null, 2)}
                         </pre>
                     </div>
                     <button onClick={() => logOut()}>Logout</button>
