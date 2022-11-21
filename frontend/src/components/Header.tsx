@@ -1,9 +1,6 @@
 import React from 'react';
 
-import { createStyles, Menu, Center, Header, Container, Group, Button, Burger } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
-import { IconChevronDown } from '@tabler/icons';
-import { MantineLogo } from '@mantine/ds';
+import { createStyles, Header } from '@mantine/core';
 import Logo from '../assets/logo.jpg';
 import { ThemeToggle } from './ThemeToggle';
 
