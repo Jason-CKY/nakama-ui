@@ -10,7 +10,7 @@ import { AuthProvider, TAuthConfig } from 'react-oauth2-code-pkce';
 const authConfig: TAuthConfig = {
     clientId: `${process.env.REACT_APP_CLIENT_ID}`,
     authorizationEndpoint: 'https://gitlab.com/oauth/authorize',
-    tokenEndpoint: 'http://localhost:8000/api/token',
+    tokenEndpoint: 'https://gitlab.com/oauth/token',
     redirectUri: 'http://localhost:3000/',
     // Example to redirect back to original path after login has completed
     preLogin: () => localStorage.setItem('preLoginPath', window.location.pathname),

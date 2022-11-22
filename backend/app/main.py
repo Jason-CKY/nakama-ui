@@ -48,16 +48,15 @@ def root():
 def get_gitlab_token(code: str = Form(), code_verifier: str = Form()):
     parameters = {
         "client_id": settings.client_id,
-        "client_secret": settings.client_secret,
         "code": code,
-        "code_verifier": code_verifier,
         'grant_type': 'authorization_code',
-        'redirect_uri': 'http://localhost:3000'
+        'redirect_uri': 'http://localhost:3000',
+        "code_verifier": code_verifier
     }
     response = requests.post(
         "https://gitlab.com/oauth/token",
         params=parameters,
-        verify=False,
+        verify=False,       # to be removed when moved into work environment
         headers={"Accept": "application/json"}
     )
     response.raise_for_status()
