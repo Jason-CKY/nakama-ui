@@ -1,7 +1,7 @@
 import './styles.css';
 
 import React, { useState, useContext } from 'react';
-import { MantineProvider, ColorSchemeProvider, ColorScheme } from '@mantine/core';
+import { MantineProvider, ColorSchemeProvider, ColorScheme, createStyles } from '@mantine/core';
 
 import { HeaderComponent } from './components/Header';
 import { Login } from './components/Login';
@@ -22,10 +22,20 @@ const authConfig: TAuthConfig = {
     autoLogin: false
 };
 
+const useStyles = createStyles((theme) => ({
+    background: {
+        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[2],
+        display: 'flex',
+        'flex-direction': 'column',
+        height: '100vh'
+    }
+}));
+
 function MainPage() {
     const { token }: IAuthContext = useContext(AuthContext);
+    const { classes } = useStyles();
     return (
-        <div className="flex flex-col">
+        <div className={classes.background}>
             <HeaderComponent />
             {token ? <ProjectPage /> : <Login />}
         </div>
