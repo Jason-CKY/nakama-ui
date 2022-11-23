@@ -16,7 +16,7 @@ export function Login(props: PaperProps) {
     }
 
     return (
-        <Paper radius="md" p="xl" withBorder className="place-self-center w-[500px]" {...props}>
+        <Paper radius="md" p="xl" withBorder className="place-self-center w-[500px] mt-[120px]" {...props}>
             {token ? (
                 <div>
                     <div>

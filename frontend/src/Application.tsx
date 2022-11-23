@@ -1,11 +1,12 @@
 import './styles.css';
 
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { MantineProvider, ColorSchemeProvider, ColorScheme } from '@mantine/core';
 
 import { HeaderComponent } from './components/Header';
 import { Login } from './components/Login';
-import { AuthProvider, TAuthConfig } from 'react-oauth2-code-pkce';
+import { AuthProvider, TAuthConfig, AuthContext, IAuthContext } from 'react-oauth2-code-pkce';
+import { ProjectPage } from './pages/ProjectPage';
 
 const authConfig: TAuthConfig = {
     clientId: `${process.env.REACT_APP_CLIENT_ID}`,
@@ -21,21 +22,27 @@ const authConfig: TAuthConfig = {
     autoLogin: false
 };
 
+function MainPage() {
+    const { token }: IAuthContext = useContext(AuthContext);
+    return (
+        <div className="flex flex-col">
+            <HeaderComponent />
+            {token ? <ProjectPage /> : <Login />}
+        </div>
+    );
+}
 export interface IApplicationProps {}
 
 export function Application(props: IApplicationProps) {
     const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
     const toggleColorScheme = (value?: ColorScheme) => setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
     return (
-        <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-            <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
-                <div className="flex flex-col">
-                    <HeaderComponent />
-                    <AuthProvider authConfig={authConfig}>
-                        <Login />
-                    </AuthProvider>
-                </div>
-            </MantineProvider>
-        </ColorSchemeProvider>
+        <AuthProvider authConfig={authConfig}>
+            <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+                <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
+                    <MainPage />
+                </MantineProvider>
+            </ColorSchemeProvider>
+        </AuthProvider>
     );
 }
