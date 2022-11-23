@@ -26,7 +26,7 @@ const useStyles = createStyles((theme) => ({
     background: {
         backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[2],
         display: 'flex',
-        'flex-direction': 'column',
+        flexDirection: 'column',
         height: '100vh'
     }
 }));

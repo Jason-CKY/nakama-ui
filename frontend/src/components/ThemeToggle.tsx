@@ -1,5 +1,5 @@
-import { Switch, Group, useMantineColorScheme, useMantineTheme } from '@mantine/core';
-import { IconSun, IconMoonStars } from '@tabler/icons';
+import { Switch, useMantineColorScheme, useMantineTheme } from '@mantine/core';
+import { RiSunLine, RiMoonClearLine } from 'react-icons/ri';
 
 interface IThemeToggleProps {
     className?: string;
@@ -15,8 +15,8 @@ export function ThemeToggle({ className }: IThemeToggleProps) {
                 checked={colorScheme === 'dark'}
                 onChange={() => toggleColorScheme()}
                 size="lg"
-                onLabel={<IconSun color={theme.white} size={20} stroke={1.5} />}
-                offLabel={<IconMoonStars color={theme.colors.gray[6]} size={20} stroke={1.5} />}
+                onLabel={<RiSunLine color={theme.white} size={20} />}
+                offLabel={<RiMoonClearLine color={theme.colors.gray[6]} size={20} />}
             />
         </div>
     );

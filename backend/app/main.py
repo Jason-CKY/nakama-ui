@@ -43,24 +43,6 @@ def custom_docs():
 def root():
     return {"Hello": "World"}
 
-
-@app.post("/api/token")
-def get_gitlab_token(code: str = Form(), code_verifier: str = Form()):
-    parameters = {
-        "client_id": settings.client_id,
-        "code": code,
-        'grant_type': 'authorization_code',
-        'redirect_uri': 'http://localhost:3000',
-        "code_verifier": code_verifier
-    }
-    response = requests.post(
-        "https://gitlab.com/oauth/token",
-        params=parameters,
-        verify=False,       # to be removed when moved into work environment
-        headers={"Accept": "application/json"}
-    )
-    response.raise_for_status()
-    return response.json()
 # serve all files in /static/*
 app.mount(
     '/static',
