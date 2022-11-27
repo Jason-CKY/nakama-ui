@@ -10,17 +10,6 @@ class Settings(BaseSettings):
 
     app_description: str
 
-    # auth
-    client_id: str = os.getenv('REACT_APP_CLIENT_ID', '')
-    client_secret: str = os.getenv('CLIENT_SECRET', '')
-
-    # mongodb connection variables
-    mongo_host: str = os.getenv('MONGODB_HOST', 'mongo')
-    mongo_port: str = os.getenv('MONGODB_PORT', '27017')
-    mongo_user: str = os.getenv('MONGODB_USER', '')
-    mongo_password: str = os.getenv('MONGODB_PASSWORD', '')
-    mongodb_uri: str = f"mongodb://{mongo_user}:{mongo_password}@{mongo_host}:{mongo_port}"
-
     log_level: str = os.getenv('LOG_LEVEL', 'DEBUG')
     log_format: str = '%(asctime)s - %(name)s:%(funcName)s:%(lineno)d - %(levelname)s - %(message)s'
 

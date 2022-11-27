@@ -1,30 +1,6 @@
 version: '3.9'
 
 services:
-
-  # mongo:
-  #   image: mongo:6.0.2
-  #   container_name: mongodb
-  #   restart: always
-  #   environment:
-  #     MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
-  #     MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
-  #   volumes:
-  #     - mongodb:/data/db
-  #   ports:
-  #     - "27017:27017"
-
-  # mongo-express:
-  #   image: mongo-express:1.0.0-alpha.4
-  #   container_name: mongo-express
-  #   restart: always
-  #   ports:
-  #     - 8001:8081
-  #   environment:
-  #     ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_USER}
-  #     ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_PASSWORD}
-  #     ME_CONFIG_MONGODB_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/
-
   fastapi:
     build:
       context: .
@@ -39,10 +15,6 @@ services:
     environment:
       LOG_LEVEL: 'DEBUG'
       RELOAD: 'true'
-      # MONGODB_HOST: mongo
-      # MONGODB_PORT: '27017'
-      # MONGODB_USER: ${MONGO_USER}
-      # MONGODB_PASSWORD: ${MONGO_PASSWORD}
     env_file:
       - ./config/server.env
 

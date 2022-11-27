@@ -27,16 +27,16 @@ pyflakes:		## Pyflakes check for any unused variables/classes
 
 .PHONY: build
 build:		## rebuild all the images in the docker-compose file
-	docker-compose --env-file config/database.env up --build -d
+	docker-compose up --build -d
 
 .PHONY: start
 start:		## deploy api with models in mlflow and monitoring deployed
-	docker-compose --env-file config/database.env up -d
+	docker-compose up -d
 
 .PHONY: stop
 stop:		## bring down all hosted services
-	docker-compose --env-file config/database.env down
+	docker-compose down
 
 .PHONY: destroy
 destroy:		## Bring down all hosted services with their volumes
-	docker-compose --env-file config/database.env down -v
+	docker-compose down -v
