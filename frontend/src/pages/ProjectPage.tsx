@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Table, Avatar, Text, ActionIcon, Divider } from '@mantine/core';
+import { Button, Table, Avatar, Text, ActionIcon, Divider, Tooltip } from '@mantine/core';
 import { RiStarLine, RiFocusLine } from 'react-icons/ri';
 import { TbGitFork, TbGitMerge } from 'react-icons/tb';
 import { MdRestartAlt, MdOutlineDelete } from 'react-icons/md';
@@ -99,16 +99,32 @@ export function ProjectPage(props: IProjectPageProps) {
                 <td>
                     <div className="flex justify-end items-center">
                         <div className="flex mx-2">
-                            <RiStarLine size="20" className="mr-1" /> {element.star_count}
+                            <Tooltip label="Stars">
+                                <ActionIcon>
+                                    <RiStarLine size="20" className="mr-1" /> {element.star_count}
+                                </ActionIcon>
+                            </Tooltip>
                         </div>
                         <div className="flex mx-2">
-                            <TbGitFork size="20" className="mr-1" /> {element.forks_count}
+                            <Tooltip label="Forks">
+                                <ActionIcon>
+                                    <TbGitFork size="20" className="mr-1" /> {element.forks_count}
+                                </ActionIcon>
+                            </Tooltip>
                         </div>
                         <div className="flex mx-2">
-                            <TbGitMerge size="20" className="mr-1" /> {element.open_merge_requests_count}
+                            <Tooltip label="Merge requests">
+                                <ActionIcon>
+                                    <TbGitMerge size="20" className="mr-1" /> {element.open_merge_requests_count}
+                                </ActionIcon>
+                            </Tooltip>
                         </div>
                         <div className="flex mx-2">
-                            <RiFocusLine size="20" className="mr-1" /> {element.open_issues_count}
+                            <Tooltip label="Issues">
+                                <ActionIcon>
+                                    <RiFocusLine size="20" className="mr-1" /> {element.open_issues_count}
+                                </ActionIcon>
+                            </Tooltip>
                         </div>
                     </div>
                 </td>
