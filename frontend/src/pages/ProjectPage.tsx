@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Table, Avatar, Text, ActionIcon } from '@mantine/core';
+import { Button, Table, Avatar, Text, ActionIcon, Divider } from '@mantine/core';
 import { RiStarLine, RiFocusLine } from 'react-icons/ri';
 import { TbGitFork, TbGitMerge } from 'react-icons/tb';
 import { MdRestartAlt, MdOutlineDelete } from 'react-icons/md';
@@ -143,6 +143,7 @@ export function ProjectPage(props: IProjectPageProps) {
                     <Button className="self-center">New Project</Button>
                 </div>
             </div>
+            <Divider className="mt-[-1rem] mb-5" />
             <Table>
                 <tbody>{rows}</tbody>
             </Table>
