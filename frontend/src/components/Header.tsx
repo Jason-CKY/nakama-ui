@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
 
-import { createStyles, Header, Button, ActionIcon } from '@mantine/core';
+import { createStyles, Header, Button } from '@mantine/core';
 import Logo from '../assets/logo.jpg';
-import { FiRefreshCcw } from 'react-icons/fi';
 import { ThemeToggle } from './ThemeToggle';
 import { AuthContext, IAuthContext } from 'react-oauth2-code-pkce';
 
@@ -34,9 +33,6 @@ export function HeaderComponent({}: IHeaderProps) {
                 <div className="flex">
                     {token && (
                         <div className="flex items-center">
-                            <ActionIcon>
-                                <FiRefreshCcw size="50" />
-                            </ActionIcon>
                             <Button className="m-3" variant="default" color="gray" radius="lg" onClick={logOut}>
                                 Log Out
                             </Button>

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button, Table, Avatar, Text, ActionIcon } from '@mantine/core';
-import Logo from '../assets/logo.jpg';
 import { RiStarLine, RiFocusLine } from 'react-icons/ri';
 import { TbGitFork, TbGitMerge } from 'react-icons/tb';
 import { MdRestartAlt, MdOutlineDelete } from 'react-icons/md';
+import { FiRefreshCcw } from 'react-icons/fi';
 
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -136,17 +136,14 @@ export function ProjectPage(props: IProjectPageProps) {
         <div className="self-center min-w-[75%]">
             <div className="flex justify-between">
                 <h1>Projects</h1>
-                <Button className="self-center">New Project</Button>
+                <div className="flex items-center">
+                    <ActionIcon className="mx-5">
+                        <FiRefreshCcw size="50" />
+                    </ActionIcon>
+                    <Button className="self-center">New Project</Button>
+                </div>
             </div>
             <Table>
-                {/* <thead>
-                    <tr>
-                        <th>Element position</th>
-                        <th>Element name</th>
-                        <th>Symbol</th>
-                        <th>Atomic mass</th>
-                    </tr>
-                </thead> */}
                 <tbody>{rows}</tbody>
             </Table>
         </div>
