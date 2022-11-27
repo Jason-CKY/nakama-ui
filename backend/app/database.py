@@ -1,0 +1,61 @@
+project_list = [{
+    'id': 0,
+    'avatar_url': '/static/virtual_scale.png',
+    'name': 'Virtual Scale',
+    'star_count': 6,
+    'forks_count': 0,
+    'open_merge_requests_count': 0,
+    'open_issues_count': 3,
+    'last_activity_at': '2013-09-30T13:46:02Z',
+    'status': 'live'
+}, {
+    'id': 1,
+    'avatar_url': '/static/virtualize.png',
+    'name': 'Virtualize',
+    'star_count': 6,
+    'forks_count': 0,
+    'open_merge_requests_count': 0,
+    'open_issues_count': 3,
+    'last_activity_at': '2019-09-30T13:46:02Z',
+    'status': 'live'
+}, {
+    'id': 2,
+    'avatar_url': '/static/datapher.png',
+    'name': 'Datapher',
+    'star_count': 6,
+    'forks_count': 0,
+    'open_merge_requests_count': 0,
+    'open_issues_count': 3,
+    'last_activity_at': '2020-09-30T13:46:02Z',
+    'status': 'progress'
+}, {
+    'id': 3,
+    'avatar_url': '/static/datable.png',
+    'name': 'Datable',
+    'star_count': 6,
+    'forks_count': 0,
+    'open_merge_requests_count': 0,
+    'open_issues_count': 3,
+    'last_activity_at': '2021-09-30T13:46:02Z',
+    'status': 'unavailable'
+}, {
+    'id': 4,
+    'avatar_url': '/static/chip_logic.png',
+    'name': 'Chip Logic',
+    'star_count': 6,
+    'forks_count': 0,
+    'open_merge_requests_count': 0,
+    'open_issues_count': 3,
+    'last_activity_at': '2022-09-30T13:46:02Z',
+    'status': 'live'
+}, {
+    'id': 5,
+    'avatar_url': '/static/datamed.png',
+    'name': 'Datamed',
+    'star_count': 6,
+    'forks_count': 0,
+    'open_merge_requests_count': 0,
+    'open_issues_count': 3,
+    'last_activity_at': '2022-09-30T13:46:02Z',
+    'status': 'live'
+}]

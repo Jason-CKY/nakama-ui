@@ -1,12 +1,13 @@
-import os 
+import os
 import requests
 import logging
-
+import time
 from pathlib import Path
-from fastapi import FastAPI, Form
+from fastapi import FastAPI, Header, HTTPException
 from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.staticfiles import StaticFiles
 from app.core.settings import settings
+from app.database import project_list
 from fastapi.middleware.cors import CORSMiddleware
 
 origins = [
@@ -30,6 +31,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get("/api", include_in_schema=False)
 def custom_docs():
     return get_swagger_ui_html(
@@ -42,6 +44,14 @@ def custom_docs():
 @app.get("/")
 def root():
     return {"Hello": "World"}
+
+
+@app.get("/api/projects")
+def get_projects(Authorization: str = Header(...)):
+    time.sleep(settings.sleep_delay)
+    # raise HTTPException(500)
+    return project_list
+
 
 # serve all files in /static/*
 app.mount(

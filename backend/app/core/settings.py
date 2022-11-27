@@ -13,6 +13,8 @@ class Settings(BaseSettings):
     log_level: str = os.getenv('LOG_LEVEL', 'DEBUG')
     log_format: str = '%(asctime)s - %(name)s:%(funcName)s:%(lineno)d - %(levelname)s - %(message)s'
 
+    # debug settings
+    sleep_delay: float = float(os.getenv('SLEEP_DELAY', '0.5'))
 
 settings = Settings(
     app_description=(Path(__file__).parent.parent /

@@ -44,8 +44,16 @@ function MainPage() {
 export interface IApplicationProps {}
 
 export function Application(props: IApplicationProps) {
-    const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
-    const toggleColorScheme = (value?: ColorScheme) => setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+    const getCurrentColorScheme = () => {
+        let currentColorScheme = localStorage.getItem('theme') as ColorScheme;
+        return !!currentColorScheme ? currentColorScheme : 'light';
+    };
+    const [colorScheme, setColorScheme] = useState<ColorScheme>(getCurrentColorScheme);
+    const toggleColorScheme = (value?: ColorScheme) => {
+        let newColorScheme = value || (colorScheme === 'dark' ? 'light' : 'dark');
+        localStorage.setItem('theme', newColorScheme);
+        setColorScheme(newColorScheme);
+    };
     return (
         <AuthProvider authConfig={authConfig}>
             <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
