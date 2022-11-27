@@ -45,10 +45,10 @@ export interface IApplicationProps {}
 
 export function Application(props: IApplicationProps) {
     const getCurrentColorScheme = () => {
-        let currentColorScheme = localStorage.getItem('theme') as ColorScheme;
+        let currentColorScheme = localStorage.getItem('theme');
         return !!currentColorScheme ? currentColorScheme : 'light';
     };
-    const [colorScheme, setColorScheme] = useState<ColorScheme>(getCurrentColorScheme);
+    const [colorScheme, setColorScheme] = useState<ColorScheme>(getCurrentColorScheme() as ColorScheme);
     const toggleColorScheme = (value?: ColorScheme) => {
         let newColorScheme = value || (colorScheme === 'dark' ? 'light' : 'dark');
         localStorage.setItem('theme', newColorScheme);
