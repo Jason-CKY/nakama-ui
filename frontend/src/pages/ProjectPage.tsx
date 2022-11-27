@@ -25,16 +25,16 @@ export function ProjectPage(props: IProjectPageProps) {
         data: {}
     });
 
+    const getAllProjects = async () => {
+        try {
+            const allProjects = await GetProjectList(token);
+            setProjects(allProjects);
+            setHasLoaded(true);
+        } catch (err) {
+            setError(err as ErrorType);
+        }
+    };
     useEffect(() => {
-        const getAllProjects = async () => {
-            try {
-                const allProjects = await GetProjectList(token);
-                setProjects(allProjects);
-                setHasLoaded(true);
-            } catch (err) {
-                setError(err as ErrorType);
-            }
-        };
         getAllProjects();
     }, []);
 
@@ -110,14 +110,22 @@ export function ProjectPage(props: IProjectPageProps) {
             </tr>
         );
     });
+
+    const refreshProjectList = async () => {
+        setHasLoaded(false);
+        await getAllProjects();
+    };
     return (
         <div className="self-center min-w-[75%]">
             <div className="flex justify-between">
                 <h1>Projects</h1>
                 <div className="flex items-center">
-                    <ActionIcon className="mx-5">
-                        <FiRefreshCcw size="50" />
-                    </ActionIcon>
+                    <Tooltip label="Refresh project list" withArrow>
+                        <ActionIcon className="mx-5" onClick={refreshProjectList}>
+                            <FiRefreshCcw size="20" />
+                        </ActionIcon>
+                    </Tooltip>
+
                     <Button className="self-center">New Project</Button>
                 </div>
             </div>
