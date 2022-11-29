@@ -1,13 +1,9 @@
-import os
-import requests
-import logging
-import time
 from pathlib import Path
-from fastapi import FastAPI, Header, HTTPException
+from fastapi import FastAPI
 from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.staticfiles import StaticFiles
 from app.core.settings import settings
-from app.database import project_list
+from app.api_controller_router import router as api_controller_api
 from fastapi.middleware.cors import CORSMiddleware
 
 origins = [
@@ -40,19 +36,7 @@ def custom_docs():
         swagger_favicon_url='/static/logo.png'
     )
 
-
-@app.get("/")
-def root():
-    return {"Hello": "World"}
-
-
-@app.get("/api/projects")
-def get_projects(Authorization: str = Header(...)):
-    time.sleep(settings.sleep_delay)
-    # raise HTTPException(500)
-    return project_list
-
-
+app.include_router(api_controller_api, tags=['api-controller'])
 # serve all files in /static/*
 app.mount(
     '/static',
