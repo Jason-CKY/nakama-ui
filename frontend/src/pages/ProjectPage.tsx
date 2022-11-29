@@ -63,28 +63,44 @@ export function ProjectPage(props: IProjectPageProps) {
                     <div className="flex justify-end items-center">
                         <div className="flex mx-2">
                             <Tooltip label="Stars" withArrow>
-                                <ActionIcon>
+                                <ActionIcon
+                                    onClick={() => {
+                                        window.location.href = `${element.web_url}/-/starrers`;
+                                    }}
+                                >
                                     <RiStarLine size="20" className="mr-1" /> {element.star_count}
                                 </ActionIcon>
                             </Tooltip>
                         </div>
                         <div className="flex mx-2">
                             <Tooltip label="Forks" withArrow>
-                                <ActionIcon>
+                                <ActionIcon
+                                    onClick={() => {
+                                        window.location.href = `${element.web_url}/-/forks`;
+                                    }}
+                                >
                                     <TbGitFork size="20" className="mr-1" /> {element.forks_count}
                                 </ActionIcon>
                             </Tooltip>
                         </div>
                         <div className="flex mx-2">
                             <Tooltip label="Merge requests" withArrow>
-                                <ActionIcon>
+                                <ActionIcon
+                                    onClick={() => {
+                                        window.location.href = `${element.web_url}/-/merge_requests`;
+                                    }}
+                                >
                                     <TbGitMerge size="20" className="mr-1" /> {element.open_merge_requests_count}
                                 </ActionIcon>
                             </Tooltip>
                         </div>
                         <div className="flex mx-2">
                             <Tooltip label="Issues" withArrow>
-                                <ActionIcon>
+                                <ActionIcon
+                                    onClick={() => {
+                                        window.location.href = `${element.web_url}/-/issues`;
+                                    }}
+                                >
                                     <RiFocusLine size="20" className="mr-1" /> {element.open_issues_count}
                                 </ActionIcon>
                             </Tooltip>
