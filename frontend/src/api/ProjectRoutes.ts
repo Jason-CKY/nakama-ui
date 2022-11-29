@@ -8,17 +8,53 @@ export interface ProjectInterface {
     open_issues_count: number;
     last_activity_at: string;
     status: string;
+    web_url: string;
+    ingress_url: string;
 }
 
-type GetProjectListFunctionSignature = (access_token: string) => Promise<ProjectInterface[]>;
-
-export const GetProjectList: GetProjectListFunctionSignature = async (access_token) => {
-    const request = new Request('/api/projects', {
+export const GetProjectList = async (access_token: string): Promise<ProjectInterface[]> => {
+    const request = new Request('/v1/projects', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${access_token}`
         }
+    });
+    // Fetch request
+    const response = await fetch(request);
+    // 500 error handling
+    if (response.status === 500) {
+        const error = { status: response.status, data: { detail: 'Internal Server Error' } };
+        throw error;
+    }
+    // 400 error handling
+    const data = await response.json();
+    if (response.status >= 400 && response.status < 500) {
+        const error = { status: response.status, data: data };
+        throw error;
+    }
+
+    return data;
+};
+
+export interface ICreateProjectProps {
+    access_token: string;
+    name: string;
+    template: string;
+    importFromUrl?: string;
+}
+
+export const CreateProject = async ({ access_token, name, template }: ICreateProjectProps): Promise<ProjectInterface> => {
+    const request = new Request('/v1/projects', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${access_token}`
+        },
+        body: JSON.stringify({
+            name: name,
+            template: template
+        })
     });
     // Fetch request
     const response = await fetch(request);

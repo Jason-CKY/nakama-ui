@@ -12,6 +12,7 @@ import { GetProjectList, ProjectInterface } from '../api/ProjectRoutes';
 import { ErrorType } from '../api/Error';
 import { AuthContext, IAuthContext } from 'react-oauth2-code-pkce';
 import { ProjectListSkeleton } from '../components/Skeleton';
+import { CreateProjectModalButton } from '../components/CreateProjectModal';
 dayjs.extend(relativeTime);
 
 export interface IProjectPageProps {}
@@ -125,8 +126,7 @@ export function ProjectPage(props: IProjectPageProps) {
                             <FiRefreshCcw size="20" />
                         </ActionIcon>
                     </Tooltip>
-
-                    <Button className="self-center">New Project</Button>
+                    <CreateProjectModalButton refreshProjectList={refreshProjectList} />
                 </div>
             </div>
             <Divider className="mt-[-1rem] mb-5" />
