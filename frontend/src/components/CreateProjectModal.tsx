@@ -2,6 +2,8 @@ import React, { useState, useContext } from 'react';
 import { Modal, Button, Group, Text, TextInput, Radio } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
+import { randomId } from '@mantine/hooks';
+
 import { CreateProject, ICreateProjectProps } from '../api/ProjectRoutes';
 import { ErrorType } from '../api/Error';
 import { AuthContext, IAuthContext } from 'react-oauth2-code-pkce';
@@ -20,7 +22,7 @@ export function CreateProjectModalButton({ refreshProjectList }: ICreateProjectM
         },
 
         validate: {
-            projectName: (value) => (!/^[a-zA-Z0-9 ]+$/.test(value) ? 'Invalid Project Name (No Special Characters)' : /^ /.test(value) ? 'Project Name cannot begin with a space' : null),
+            projectName: (value) => (!/^[a-zA-Z0-9-_ ]+$/.test(value) ? 'Invalid Project Name (No Special Characters)' : /^ /.test(value) ? 'Project Name cannot begin with a space' : null),
             template: (value) => (value === '' ? 'Please choose a template' : null)
         }
     });
@@ -52,8 +54,20 @@ export function CreateProjectModalButton({ refreshProjectList }: ICreateProjectM
                     </Text>
                 </div>
                 <form onSubmit={form.onSubmit(handleSubmit)} className="mt-5">
-                    {/* https://mantine.dev/form/values/ TODO: generate random project names */}
-                    <TextInput required label="Project Name" placeholder="My Awesome Project" {...form.getInputProps('projectName')} />
+                    <div className="flex items-center">
+                        <TextInput className="min-w-[60%]" required label="Project Name" placeholder="My Awesome Project" {...form.getInputProps('projectName')} />
+                        <Button
+                            className="mt-6 mx-5"
+                            variant="outline"
+                            onClick={() =>
+                                form.setValues({
+                                    projectName: `My-Awesome-Project-${randomId().split('-')[1]}`
+                                })
+                            }
+                        >
+                            Set random values
+                        </Button>
+                    </div>
                     <br />
                     <Radio.Group required orientation="vertical" name="favoriteFramework" label="Select your template" {...form.getInputProps('template')}>
                         <Radio
