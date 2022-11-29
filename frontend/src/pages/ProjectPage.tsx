@@ -8,7 +8,7 @@ import { FiRefreshCcw } from 'react-icons/fi';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { StatusEnum, StatusIcon } from '../components/Icons';
-import { GetProjectList, ProjectInterface } from '../api/ProjectRoutes';
+import { DeleteProject, GetProjectList, ProjectInterface, RestartProject } from '../api/ProjectRoutes';
 import { ErrorType } from '../api/Error';
 import { AuthContext, IAuthContext } from 'react-oauth2-code-pkce';
 import { ProjectListSkeleton } from '../components/Skeleton';
@@ -128,10 +128,18 @@ export function ProjectPage(props: IProjectPageProps) {
                         >
                             View
                         </Button>
-                        <ActionIcon>
+                        <ActionIcon
+                            onClick={() => {
+                                restartProject(element.id);
+                            }}
+                        >
                             <MdRestartAlt size="50" />
                         </ActionIcon>
-                        <ActionIcon>
+                        <ActionIcon
+                            onClick={() => {
+                                deleteProject(element.id);
+                            }}
+                        >
                             <MdOutlineDelete size="50" />
                         </ActionIcon>
                     </div>
@@ -142,6 +150,30 @@ export function ProjectPage(props: IProjectPageProps) {
 
     const refreshProjectList = async () => {
         setHasLoaded(false);
+        await getAllProjects();
+    };
+
+    const restartProject = async (pid: number) => {
+        try {
+            await RestartProject({
+                access_token: token,
+                pid: pid
+            });
+        } catch (err) {
+            setError(err as ErrorType);
+        }
+        await getAllProjects();
+    };
+
+    const deleteProject = async (pid: number) => {
+        try {
+            await DeleteProject({
+                access_token: token,
+                pid: pid
+            });
+        } catch (err) {
+            setError(err as ErrorType);
+        }
         await getAllProjects();
     };
     return (

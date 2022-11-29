@@ -18,6 +18,12 @@ def restart_project(pid: int, Authorization: str = Header(...)):
     project_list[pid]['status'] = 'progress'
     return project_list
 
+@router.delete("/v1/projects/{pid}", summary="Delete an existing project in Gitlab Group")
+def delete_project(pid: int, Authorization: str = Header(...)):
+    time.sleep(settings.sleep_delay)
+    # raise HTTPException(500, detail="error")
+    del project_list[pid]
+
 @router.get("/v1/projects", summary="Get Projects accessible by user within specified group")
 def get_projects(Authorization: str = Header(...)):
     time.sleep(settings.sleep_delay)
@@ -37,3 +43,4 @@ def create_project(createProject: CreateProject, Authorization: str = Header(...
     random_project['id'] = len(project_list)
     project_list.append(random_project)
     print(project_list)
+

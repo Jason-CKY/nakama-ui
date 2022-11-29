@@ -72,3 +72,63 @@ export const CreateProject = async ({ access_token, name, template }: ICreatePro
 
     return data;
 };
+
+export interface IRestartProjectProps {
+    access_token: string;
+    pid: number;
+}
+
+export const RestartProject = async ({ access_token, pid }: IRestartProjectProps): Promise<void> => {
+    const request = new Request(`/v1/projects/${pid}/restart`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${access_token}`
+        }
+    });
+    // Fetch request
+    const response = await fetch(request);
+    // 500 error handling
+    if (response.status === 500) {
+        const error = { status: response.status, data: { detail: 'Internal Server Error' } };
+        throw error;
+    }
+    // 400 error handling
+    const data = await response.json();
+    if (response.status >= 400 && response.status < 500) {
+        const error = { status: response.status, data: data };
+        throw error;
+    }
+
+    return data;
+};
+
+export interface IDeleteProjectProps {
+    access_token: string;
+    pid: number;
+}
+
+export const DeleteProject = async ({ access_token, pid }: IDeleteProjectProps): Promise<void> => {
+    const request = new Request(`/v1/projects/${pid}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${access_token}`
+        }
+    });
+    // Fetch request
+    const response = await fetch(request);
+    // 500 error handling
+    if (response.status === 500) {
+        const error = { status: response.status, data: { detail: 'Internal Server Error' } };
+        throw error;
+    }
+    // 400 error handling
+    const data = await response.json();
+    if (response.status >= 400 && response.status < 500) {
+        const error = { status: response.status, data: data };
+        throw error;
+    }
+
+    return data;
+};
