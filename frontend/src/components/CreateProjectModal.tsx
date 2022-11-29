@@ -14,6 +14,7 @@ export interface ICreateProjectModalButtonProps {
 
 export function CreateProjectModalButton({ refreshProjectList }: ICreateProjectModalButtonProps) {
     const [opened, setOpened] = useState(false);
+    const [loading, setLoading] = useState(false);
     const { token }: IAuthContext = useContext(AuthContext);
     const form = useForm({
         initialValues: {
@@ -28,6 +29,7 @@ export function CreateProjectModalButton({ refreshProjectList }: ICreateProjectM
     });
 
     const handleSubmit = async (values: typeof form.values) => {
+        setLoading(true);
         const CreateProjectPayload: ICreateProjectProps = {
             access_token: token,
             name: values.projectName,
@@ -43,11 +45,12 @@ export function CreateProjectModalButton({ refreshProjectList }: ICreateProjectM
             const error = err as ErrorType;
             showNotification({ message: `Error ${error.status}: ${error.data.detail}`, color: 'red' });
         }
+        setLoading(false);
     };
 
     return (
         <>
-            <Modal opened={opened} onClose={() => setOpened(false)} withCloseButton={false} centered size="lg">
+            <Modal opened={opened} onClose={() => (loading ? null : setOpened(false))} withCloseButton={false} centered size="lg">
                 <div>
                     <Text size="lg" weight={800}>
                         Create a project in Nakama
@@ -64,6 +67,7 @@ export function CreateProjectModalButton({ refreshProjectList }: ICreateProjectM
                                     projectName: `My-Awesome-Project-${randomId().split('-')[1]}`
                                 })
                             }
+                            disabled={loading}
                         >
                             Set random values
                         </Button>
@@ -84,7 +88,9 @@ export function CreateProjectModalButton({ refreshProjectList }: ICreateProjectM
                     </Radio.Group>
 
                     <Group position="right" mt="md">
-                        <Button type="submit">Create Project</Button>
+                        <Button type="submit" disabled={loading}>
+                            Create Project
+                        </Button>
                     </Group>
                 </form>
             </Modal>
