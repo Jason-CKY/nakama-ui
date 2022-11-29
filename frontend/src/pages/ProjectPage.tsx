@@ -94,10 +94,22 @@ export function ProjectPage(props: IProjectPageProps) {
                 <td>
                     <div className="flex justify-end items-center">
                         <StatusIcon status={StatusEnum[element.status as keyof typeof StatusEnum]} size="50" />
-                        <Button variant="default" className="mx-1">
+                        <Button
+                            variant="default"
+                            className="mx-1"
+                            onClick={() => {
+                                window.location.href = `${element.web_url}/edit`;
+                            }}
+                        >
                             Edit
                         </Button>
-                        <Button variant="default" className="mx-1">
+                        <Button
+                            variant="default"
+                            className="mx-1"
+                            onClick={() => {
+                                window.location.href = `${element.ingress_url}`;
+                            }}
+                        >
                             View
                         </Button>
                         <ActionIcon>
