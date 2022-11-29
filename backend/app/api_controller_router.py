@@ -3,7 +3,7 @@ import time
 import random
 from fastapi import APIRouter, Header, HTTPException
 from app.core.settings import settings
-from app.database import project_list
+from app.database import project_list, get_next_count
 from pydantic import BaseModel
 from typing import Union
 
@@ -40,7 +40,7 @@ def create_project(createProject: CreateProject, Authorization: str = Header(...
     time.sleep(settings.sleep_delay)
     # raise HTTPException(500, detail="error")
     random_project = random.choice(project_list).copy()
-    random_project['id'] = len(project_list)
+    random_project['id'] = get_next_count()
     project_list.append(random_project)
     print(project_list)
 

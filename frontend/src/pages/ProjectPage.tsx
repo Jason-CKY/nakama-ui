@@ -15,11 +15,17 @@ import { ProjectListSkeleton } from '../components/Skeleton';
 import { CreateProjectModalButton } from '../components/CreateProjectModal';
 dayjs.extend(relativeTime);
 
+interface IProjectLoading {
+    id: number;
+    loading: boolean;
+}
+
 export interface IProjectPageProps {}
 
 export function ProjectPage(props: IProjectPageProps) {
     const { token }: IAuthContext = useContext(AuthContext);
     const [hasLoaded, setHasLoaded] = useState(false);
+    const [projectLoadingStatus, setProjectLoadingStatus] = useState<IProjectLoading[]>([]);
     const [projects, setProjects] = useState<ProjectInterface[]>([]);
     const [error, setError] = useState<ErrorType>({
         status: 200,
@@ -31,6 +37,11 @@ export function ProjectPage(props: IProjectPageProps) {
             const allProjects = await GetProjectList(token);
             setProjects(allProjects);
             setHasLoaded(true);
+            setProjectLoadingStatus(
+                allProjects.map((project) => {
+                    return { id: project.id, loading: false };
+                })
+            );
         } catch (err) {
             setError(err as ErrorType);
         }
@@ -132,6 +143,7 @@ export function ProjectPage(props: IProjectPageProps) {
                             onClick={() => {
                                 restartProject(element.id);
                             }}
+                            disabled={projectLoadingStatus.filter((project) => project.id === element.id)[0].loading}
                         >
                             <MdRestartAlt size="50" />
                         </ActionIcon>
@@ -139,6 +151,7 @@ export function ProjectPage(props: IProjectPageProps) {
                             onClick={() => {
                                 deleteProject(element.id);
                             }}
+                            disabled={projectLoadingStatus.filter((project) => project.id === element.id)[0].loading}
                         >
                             <MdOutlineDelete size="50" />
                         </ActionIcon>
@@ -155,6 +168,11 @@ export function ProjectPage(props: IProjectPageProps) {
 
     const restartProject = async (pid: number) => {
         try {
+            setProjectLoadingStatus((oldProjectLoadingStatus) => {
+                return oldProjectLoadingStatus.map((projectLoadingStatus) => {
+                    return projectLoadingStatus.id === pid ? { ...projectLoadingStatus, loading: true } : projectLoadingStatus;
+                });
+            });
             await RestartProject({
                 access_token: token,
                 pid: pid
@@ -167,6 +185,11 @@ export function ProjectPage(props: IProjectPageProps) {
 
     const deleteProject = async (pid: number) => {
         try {
+            setProjectLoadingStatus((oldProjectLoadingStatus) => {
+                return oldProjectLoadingStatus.map((projectLoadingStatus) => {
+                    return projectLoadingStatus.id === pid ? { ...projectLoadingStatus, loading: true } : projectLoadingStatus;
+                });
+            });
             await DeleteProject({
                 access_token: token,
                 pid: pid

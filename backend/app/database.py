@@ -71,3 +71,10 @@ project_list = [{
     'web_url': 'https://gitlab.com/nakama2/nakama-sa-project',
     'ingress_url': 'https://exampleproject.com'
 }]
+
+def get_next_count():
+    last_count = len(project_list)
+    for project in project_list:
+        if last_count == project['id']:
+            last_count = project['id'] + 1
+    return last_count
