@@ -18,7 +18,7 @@ def restart_project(pid: int, Authorization: str = Header(...)):
     project_list[pid]['status'] = 'progress'
     return project_list
 
-@router.delete("/v1/projects/{pid}", summary="Delete an existing project in Gitlab Group")
+@router.put("/v1/projects/{pid}/delete", summary="Delete an existing project in Gitlab Group")
 def delete_project(pid: int, Authorization: str = Header(...)):
     time.sleep(settings.sleep_delay)
     # raise HTTPException(500, detail="error")

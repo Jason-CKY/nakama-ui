@@ -109,8 +109,8 @@ export interface IDeleteProjectProps {
 }
 
 export const DeleteProject = async ({ access_token, pid }: IDeleteProjectProps): Promise<void> => {
-    const request = new Request(`/v1/projects/${pid}`, {
-        method: 'DELETE',
+    const request = new Request(`/v1/projects/${pid}/delete`, {
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${access_token}`

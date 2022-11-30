@@ -10,6 +10,10 @@ This is the frontend UI for the code deployment service Nakama.
 3. Run `make start`
 
 
+## API Documentation
+
+API Documentation is available at `localhost:8000/api` for reference
+
 ## Troubleshooting
 
 ### Ignore changes to a file already committed
