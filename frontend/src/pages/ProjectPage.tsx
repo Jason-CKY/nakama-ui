@@ -64,7 +64,7 @@ export function ProjectPage(props: IProjectPageProps) {
                         <Avatar src={element.avatar_url} radius="md" size="xl" />
                         <div className="ml-5">
                             <Text fz="xl" fw="700" className="m-auto">
-                                {element.name} {element.id}
+                                {element.name}
                             </Text>
                             <Text c="dimmed" className="m-auto">{`Updated ${dayjs(element.last_activity_at).fromNow()}`}</Text>
                         </div>
