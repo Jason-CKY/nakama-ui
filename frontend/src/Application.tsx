@@ -54,7 +54,6 @@ export function Application(props: IApplicationProps) {
         localStorage.setItem('theme', newColorScheme);
         setColorScheme(newColorScheme);
     };
-    console.log(authConfig.clientId)
     return (
         <AuthProvider authConfig={authConfig}>
             <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>

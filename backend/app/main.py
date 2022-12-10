@@ -6,10 +6,6 @@ from app.core.settings import settings
 from app.api_controller_router import router as api_controller_api
 from fastapi.middleware.cors import CORSMiddleware
 
-origins = [
-    "http://localhost:3000",
-]
-
 app = FastAPI(
     title=settings.app_name,
     description=settings.app_description,

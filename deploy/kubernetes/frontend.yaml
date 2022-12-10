@@ -18,7 +18,7 @@ spec:
         app: nakama-frontend
     spec:
       containers:
-      - image: jasoncky96/nakama-frontend:dev
+      - image: jasoncky96/nakama-frontend:1.0
         imagePullPolicy: Always
         name: nakama-frontend
         resources: {}

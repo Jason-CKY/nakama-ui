@@ -1,9 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: dashboard-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+  name: nakama-ingress
 spec:
   rules:
   - host: "nakama.cluster.local"
@@ -16,9 +14,6 @@ spec:
               number: 80
         path: /
         pathType: Prefix
-  - host: nakama.cluster.local
-    http:
-      paths:
       - backend:
           service:
             name: nakama-backend
