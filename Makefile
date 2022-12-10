@@ -26,8 +26,8 @@ pyflakes:		## Pyflakes check for any unused variables/classes
 	/bin/bash -c "pip install --upgrade pyflakes && python -m pyflakes /src && echo 'pyflakes passed!'"
 
 .PHONY: build
-build:		## rebuild all the images in the docker-compose file
-	docker-compose up --build -d
+build:		## build all the images in the docker-compose file
+	docker-compose build
 
 .PHONY: start
 start:		## deploy api with models in mlflow and monitoring deployed
@@ -39,4 +39,20 @@ stop:		## bring down all hosted services
 
 .PHONY: destroy
 destroy:		## Bring down all hosted services with their volumes
+	docker-compose down -v
+
+.PHONY: build-prod
+build-prod:		## build all the images in the docker-compose.prod file
+	docker-compose -f docker-compose.prod.yml build
+
+.PHONY: start-prod
+start-prod:		## deploy api with models in mlflow and monitoring deployed
+	docker-compose up -d
+
+.PHONY: stop-prod
+stop-prod:		## bring down all hosted services
+	docker-compose down
+
+.PHONY: destroy-prod
+destroy-prod:		## Bring down all hosted services with their volumes
 	docker-compose down -v
