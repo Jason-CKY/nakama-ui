@@ -8,8 +8,6 @@ services:
       target: deploy
     container_name: fastapi
     image: jasoncky96/nakama-backend:latest
-    volumes:
-      - ./backend:/app
     ports:
       - 8000:80
     environment:
@@ -25,14 +23,8 @@ services:
       target: production
     container_name: react
     image: jasoncky96/nakama-frontend:latest
-    volumes:
-      - ./frontend:/app
     ports:
       - 3000:3000
-    environment:
-      GENERATE_SOURCEMAP: "false"   # https://github.com/facebook/create-react-app/pull/11752
-    env_file:
-     - ./config/client.env
 
 volumes:
   minio_volume: {}

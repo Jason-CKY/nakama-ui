@@ -47,12 +47,12 @@ build-prod:		## build all the images in the docker-compose.prod file
 
 .PHONY: start-prod
 start-prod:		## deploy api with models in mlflow and monitoring deployed
-	docker-compose up -d
+	docker-compose -f docker-compose.prod.yml up -d
 
 .PHONY: stop-prod
 stop-prod:		## bring down all hosted services
-	docker-compose down
+	docker-compose -f docker-compose.prod.yml down
 
 .PHONY: destroy-prod
 destroy-prod:		## Bring down all hosted services with their volumes
-	docker-compose down -v
+	docker-compose -f docker-compose.prod.yml down -v
