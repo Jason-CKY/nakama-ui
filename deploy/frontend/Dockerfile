@@ -6,7 +6,8 @@ RUN npm config set strict-ssl false
 COPY ./frontend /app
 WORKDIR /app
 EXPOSE 3000
-CMD npm install -l; npm start
+RUN npm install -l
+CMD npm start
 
 FROM dev as production
 
