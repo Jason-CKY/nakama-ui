@@ -14,8 +14,3 @@ RUN npm install -l; npm run build
 RUN npm install -g serve
 
 CMD serve -s build
-# FROM nginx:1.23.1-alpine as production
-
-# COPY --from=build /app/build /usr/share/nginx/html
-# RUN chmod -R 775 /usr/share/nginx/html
-# COPY ./deploy/frontend/nginx.conf /etc/nginx/nginx.conf
