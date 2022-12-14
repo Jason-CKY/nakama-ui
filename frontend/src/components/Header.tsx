@@ -3,7 +3,8 @@ import React, { useContext } from 'react';
 import { createStyles, Header, Button } from '@mantine/core';
 import Logo from '../assets/logo.jpg';
 import { ThemeToggle } from './ThemeToggle';
-import { AuthContext, IAuthContext } from 'react-oauth2-code-pkce';
+import { AuthContext } from '../oauth/AuthContext';
+import { IAuthContext } from '../oauth/Types';
 
 const HEADER_HEIGHT = 80;
 

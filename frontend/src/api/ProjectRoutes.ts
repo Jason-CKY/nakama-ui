@@ -13,7 +13,7 @@ export interface ProjectInterface {
 }
 
 export const GetProjectList = async (access_token: string): Promise<ProjectInterface[]> => {
-    const request = new Request('/v1/projects', {
+    const request = new Request('/api/v1/projects', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ export interface ICreateProjectProps {
 }
 
 export const CreateProject = async ({ access_token, name, template }: ICreateProjectProps): Promise<ProjectInterface> => {
-    const request = new Request('/v1/projects', {
+    const request = new Request('/api/v1/projects', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ export interface IRestartProjectProps {
 }
 
 export const RestartProject = async ({ access_token, pid }: IRestartProjectProps): Promise<void> => {
-    const request = new Request(`/v1/projects/${pid}/restart`, {
+    const request = new Request(`/api/v1/projects/${pid}/restart`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -109,7 +109,7 @@ export interface IDeleteProjectProps {
 }
 
 export const DeleteProject = async ({ access_token, pid }: IDeleteProjectProps): Promise<void> => {
-    const request = new Request(`/v1/projects/${pid}/delete`, {
+    const request = new Request(`/api/v1/projects/${pid}/delete`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',

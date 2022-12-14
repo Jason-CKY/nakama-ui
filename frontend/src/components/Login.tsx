@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { Text, Paper, Group, PaperProps } from '@mantine/core';
 import { GitlabButton } from './SocialButtons';
-import { AuthContext, IAuthContext } from 'react-oauth2-code-pkce';
+import { AuthContext } from '../oauth/AuthContext';
+import { IAuthContext } from '../oauth/Types';
 import jwt_decode from 'jwt-decode';
 
 export function Login(props: PaperProps) {

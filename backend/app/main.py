@@ -32,7 +32,7 @@ def custom_docs():
         swagger_favicon_url='/static/logo.png'
     )
 
-app.include_router(api_controller_api, tags=['api-controller'])
+app.include_router(api_controller_api, tags=['api-controller'], prefix="/api")
 # serve all files in /static/*
 app.mount(
     '/static',

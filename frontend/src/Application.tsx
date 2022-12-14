@@ -5,7 +5,8 @@ import { MantineProvider, ColorSchemeProvider, ColorScheme, createStyles } from 
 import { NotificationsProvider } from '@mantine/notifications';
 import { HeaderComponent } from './components/Header';
 import { Login } from './components/Login';
-import { AuthProvider, TAuthConfig, AuthContext, IAuthContext } from 'react-oauth2-code-pkce';
+import { AuthProvider, AuthContext } from './oauth/AuthContext';
+import { TAuthConfig, IAuthContext } from './oauth/Types';
 import { ProjectPage } from './pages/ProjectPage';
 
 const authConfig: TAuthConfig = {
@@ -19,7 +20,8 @@ const authConfig: TAuthConfig = {
     onRefreshTokenExpire: (event) => window.confirm('Session expired. Refresh page to continue using the site?') && event.login(),
     decodeToken: false,
     scope: 'openid email profile api',
-    autoLogin: false
+    autoLogin: false,
+    flow: 'authorization_code'
 };
 
 const useStyles = createStyles((theme) => ({

@@ -10,7 +10,10 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { StatusEnum, StatusIcon } from '../components/Icons';
 import { DeleteProject, GetProjectList, ProjectInterface, RestartProject } from '../api/ProjectRoutes';
 import { ErrorType } from '../api/Error';
-import { AuthContext, IAuthContext } from 'react-oauth2-code-pkce';
+
+import { AuthContext } from '../oauth/AuthContext';
+import { IAuthContext } from '../oauth/Types';
+
 import { ProjectListSkeleton } from '../components/Skeleton';
 import { CreateProjectModalButton } from '../components/CreateProjectModal';
 dayjs.extend(relativeTime);

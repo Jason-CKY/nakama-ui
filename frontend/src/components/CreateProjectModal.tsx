@@ -6,7 +6,8 @@ import { randomId } from '@mantine/hooks';
 
 import { CreateProject, ICreateProjectProps } from '../api/ProjectRoutes';
 import { ErrorType } from '../api/Error';
-import { AuthContext, IAuthContext } from 'react-oauth2-code-pkce';
+import { AuthContext } from '../oauth/AuthContext';
+import { IAuthContext } from '../oauth/Types';
 
 export interface ICreateProjectModalButtonProps {
     refreshProjectList: () => Promise<void>;
