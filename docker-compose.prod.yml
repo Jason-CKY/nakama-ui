@@ -14,7 +14,7 @@ services:
       LOG_LEVEL: 'DEBUG'
       RELOAD: 'true'
     env_file:
-      - ./config/server.env
+      - ./backend/.env
 
   react:
     build:

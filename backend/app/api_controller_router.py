@@ -1,7 +1,9 @@
 import logging
 import time
 import random
-from fastapi import APIRouter, Header, HTTPException
+import os
+import requests
+from fastapi import APIRouter, Header, HTTPException, Form
 from app.core.settings import settings
 from app.database import project_list, get_next_count
 from pydantic import BaseModel
@@ -10,7 +12,22 @@ from typing import Union
 logger = logging.getLogger(settings.app_name)
 router = APIRouter()
 
-
+@router.post("/token")
+def get_github_token(code: str = Form()):
+    parameters = {
+        "client_id": os.getenv("CLIENT_ID"),
+        "client_secret": os.getenv("CLIENT_SECRET"),
+        "code": code,
+        "grant_type": "authorization_code",
+        "redirect_uri": settings.redirect_uri
+    }
+    response = requests.post(
+        "https://gitlab.com/oauth/token",
+        params=parameters,
+        headers={"Accept": "application/json"}
+    )
+    response.raise_for_status()
+    return response.json()
 
 @router.put("/v1/projects/{pid}/restart", summary="Restart instances of the deployed project")
 def restart_project(pid: int, Authorization: str = Header(...)):

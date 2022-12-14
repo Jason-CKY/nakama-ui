@@ -11,7 +11,7 @@ import { ProjectPage } from './pages/ProjectPage';
 const authConfig: TAuthConfig = {
     clientId: `${process.env.REACT_APP_CLIENT_ID}`,
     authorizationEndpoint: 'https://gitlab.com/oauth/authorize',
-    tokenEndpoint: 'https://gitlab.com/oauth/token',
+    tokenEndpoint: '/api/token',
     redirectUri: 'http://localhost:3000/',
     // Example to redirect back to original path after login has completed
     preLogin: () => localStorage.setItem('preLoginPath', window.location.pathname),

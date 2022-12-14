@@ -16,6 +16,10 @@ class Settings(BaseSettings):
     # debug settings
     sleep_delay: float = float(os.getenv('SLEEP_DELAY', '0.5'))
 
+    client_id: str = os.getenv("CLIENT_ID"),
+    client_secret: str = os.getenv("CLIENT_SECRET"),
+    redirect_uri: str = os.getenv("REDIRECT_URI", "http://localhost:3000")
+
 settings = Settings(
     app_description=(Path(__file__).parent.parent /
                      'static/documentation.md').read_text(encoding='utf-8')
