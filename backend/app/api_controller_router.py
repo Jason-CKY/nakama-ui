@@ -15,14 +15,14 @@ router = APIRouter()
 @router.post("/token")
 def get_github_token(code: str = Form()):
     parameters = {
-        "client_id": os.getenv("CLIENT_ID"),
-        "client_secret": os.getenv("CLIENT_SECRET"),
+        "client_id": settings.client_id,
+        "client_secret": settings.client_secret,
         "code": code,
         "grant_type": "authorization_code",
         "redirect_uri": settings.redirect_uri
     }
     response = requests.post(
-        "https://gitlab.com/oauth/token",
+        settings.gitlab_token_url,
         params=parameters,
         headers={"Accept": "application/json"}
     )
