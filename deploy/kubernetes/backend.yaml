@@ -33,6 +33,12 @@ spec:
           value: 'INFO'
         - name: RELOAD
           value: 'false'
+        - name: CLIENT_ID
+          value: 'fill-this-in'
+        - name: CLIENT_SECRET
+          value: 'fill-this-in'
+        - name: GITLAB_TOKEN_URL
+          value: 'https://gitlab.com/oauth/token'
         ports:
           - containerPort: 80
             protocol: TCP

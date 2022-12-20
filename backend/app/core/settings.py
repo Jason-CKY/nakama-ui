@@ -19,7 +19,8 @@ class Settings(BaseSettings):
     client_id: str = os.getenv("CLIENT_ID"),
     client_secret: str = os.getenv("CLIENT_SECRET"),
     redirect_uri: str = os.getenv("REDIRECT_URI", "http://localhost:3000")
-
+    gitlab_token_url: str = os.getenv("GITLAB_TOKEN_URL", "https://gitlab.com/oauth/token")
+        
 settings = Settings(
     app_description=(Path(__file__).parent.parent /
                      'static/documentation.md').read_text(encoding='utf-8')

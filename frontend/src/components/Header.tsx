@@ -31,7 +31,7 @@ export function HeaderComponent({}: IHeaderProps) {
         <Header height={HEADER_HEIGHT} className={classes.header}>
             <div className="flex justify-between w-full">
                 <img src={Logo} className="rounded-full mx-5 mb-2 min-w-[3%]" />
-                <div className="flex">
+                <div className="flex items-center">
                     {token && (
                         <div className="flex items-center">
                             <Button className="m-3" variant="default" color="gray" radius="lg" onClick={logOut}>
