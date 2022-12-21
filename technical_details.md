@@ -30,15 +30,15 @@
 
 ### 1. User creates a project from the User Interface
 
-![create-project](./assets/create-project-use-case.png)
+![create-project](./assets/create-project-use-case.jpg)
 
 ### 2. User push code changes to the remote git repository
 
-![push-code-changes](./assets/push-code-changes-use-case.png)
+![push-code-changes](./assets/push-code-changes-use-case.jpg)
 
 ### 3. User deletes the project from the User Interface
 
-![delete-project](./assets/delete-project-use-case.png)
+![delete-project](./assets/delete-project-use-case.jpg)
 
 ## Notes
 
