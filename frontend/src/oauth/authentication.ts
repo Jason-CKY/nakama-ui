@@ -68,13 +68,14 @@ export const fetchTokens = (config: TInternalConfig): Promise<TTokenResponse> =>
   */
     const urlParams = new URLSearchParams(window.location.search);
     const authCode = urlParams.get('code');
-    const codeVerifier = window.localStorage.getItem(codeVerifierStorageKey);
+    let codeVerifier = window.localStorage.getItem(codeVerifierStorageKey);
 
     if (!authCode) {
         throw Error("Parameter 'code' not found in URL. \nHas authentication taken place?");
     }
     if (!codeVerifier) {
-        throw Error("Can't get tokens without the CodeVerifier. \nHas authentication taken place?");
+        codeVerifier = "";
+        // throw Error("Can't get tokens without the CodeVerifier. \nHas authentication taken place?");
     }
 
     const tokenRequest: TTokenRequestWithCodeAndVerifier = {
