@@ -74,7 +74,7 @@ export function CreateProjectModalButton({ refreshProjectList }: ICreateProjectM
                         </Button>
                     </div>
                     <br />
-                    <Radio.Group required orientation="vertical" name="favoriteFramework" label="Select your template" {...form.getInputProps('template')}>
+                    <Radio.Group required name="favoriteFramework" label="Select your template" {...form.getInputProps('template')}>
                         <Radio
                             value="streamlit"
                             label={

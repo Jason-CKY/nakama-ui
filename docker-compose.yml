@@ -33,7 +33,3 @@ services:
       GENERATE_SOURCEMAP: "false"   # https://github.com/facebook/create-react-app/pull/11752
     env_file:
      - ./frontend/.env
-
-volumes:
-  minio_volume: {}
-  mongodb: {}

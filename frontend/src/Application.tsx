@@ -2,7 +2,7 @@ import './styles.css';
 
 import React, { useState, useContext } from 'react';
 import { MantineProvider, ColorSchemeProvider, ColorScheme, createStyles } from '@mantine/core';
-import { NotificationsProvider } from '@mantine/notifications';
+import { Notifications } from '@mantine/notifications';
 import { HeaderComponent } from './components/Header';
 import { Login } from './components/Login';
 import { AuthProvider, AuthContext } from './oauth/AuthContext';
@@ -60,9 +60,8 @@ export function Application(props: IApplicationProps) {
         <AuthProvider authConfig={authConfig}>
             <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
                 <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
-                    <NotificationsProvider>
-                        <MainPage />
-                    </NotificationsProvider>
+                    <Notifications />
+                    <MainPage />
                 </MantineProvider>
             </ColorSchemeProvider>
         </AuthProvider>

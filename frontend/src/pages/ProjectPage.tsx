@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Table, Avatar, Text, ActionIcon, Divider, Tooltip } from '@mantine/core';
+import { Button, Table, Avatar, Text, ActionIcon, Divider, Tooltip, Modal } from '@mantine/core';
 import { RiStarLine, RiFocusLine } from 'react-icons/ri';
 import { TbGitFork, TbGitMerge } from 'react-icons/tb';
 import { MdRestartAlt, MdOutlineDelete } from 'react-icons/md';
@@ -16,6 +16,7 @@ import { IAuthContext } from '../oauth/Types';
 
 import { ProjectListSkeleton } from '../components/Skeleton';
 import { CreateProjectModalButton } from '../components/CreateProjectModal';
+import { DeleteConfirmationModal } from '../components/DeleteConfirmationModal';
 dayjs.extend(relativeTime);
 
 interface IProjectLoading {
@@ -58,6 +59,45 @@ export function ProjectPage(props: IProjectPageProps) {
     } else if (error.status === 500) {
         return <h1>500 Internal Server Error</h1>;
     }
+
+    const refreshProjectList = async () => {
+        setHasLoaded(false);
+        await getAllProjects();
+    };
+
+    const restartProject = async (pid: number) => {
+        try {
+            setProjectLoadingStatus((oldProjectLoadingStatus) => {
+                return oldProjectLoadingStatus.map((projectLoadingStatus) => {
+                    return projectLoadingStatus.id === pid ? { ...projectLoadingStatus, loading: true } : projectLoadingStatus;
+                });
+            });
+            await RestartProject({
+                access_token: token,
+                pid: pid
+            });
+        } catch (err) {
+            setError(err as ErrorType);
+        }
+        await getAllProjects();
+    };
+
+    const deleteProject = async (pid: number) => {
+        try {
+            setProjectLoadingStatus((oldProjectLoadingStatus) => {
+                return oldProjectLoadingStatus.map((projectLoadingStatus) => {
+                    return projectLoadingStatus.id === pid ? { ...projectLoadingStatus, loading: true } : projectLoadingStatus;
+                });
+            });
+            await DeleteProject({
+                access_token: token,
+                pid: pid
+            });
+        } catch (err) {
+            setError(err as ErrorType);
+        }
+        await getAllProjects();
+    };
 
     const rows = projects.map((element) => {
         return (
@@ -150,58 +190,21 @@ export function ProjectPage(props: IProjectPageProps) {
                         >
                             <MdRestartAlt size="50" />
                         </ActionIcon>
-                        <ActionIcon
+                        {/* <ActionIcon
                             onClick={() => {
                                 deleteProject(element.id);
                             }}
                             disabled={projectLoadingStatus.filter((project) => project.id === element.id)[0].loading}
                         >
                             <MdOutlineDelete size="50" />
-                        </ActionIcon>
+                        </ActionIcon> */}
+                        <DeleteConfirmationModal project_id={element.id} disabled={projectLoadingStatus.filter((project) => project.id === element.id)[0].loading} deleteProject={deleteProject} />
                     </div>
                 </td>
             </tr>
         );
     });
 
-    const refreshProjectList = async () => {
-        setHasLoaded(false);
-        await getAllProjects();
-    };
-
-    const restartProject = async (pid: number) => {
-        try {
-            setProjectLoadingStatus((oldProjectLoadingStatus) => {
-                return oldProjectLoadingStatus.map((projectLoadingStatus) => {
-                    return projectLoadingStatus.id === pid ? { ...projectLoadingStatus, loading: true } : projectLoadingStatus;
-                });
-            });
-            await RestartProject({
-                access_token: token,
-                pid: pid
-            });
-        } catch (err) {
-            setError(err as ErrorType);
-        }
-        await getAllProjects();
-    };
-
-    const deleteProject = async (pid: number) => {
-        try {
-            setProjectLoadingStatus((oldProjectLoadingStatus) => {
-                return oldProjectLoadingStatus.map((projectLoadingStatus) => {
-                    return projectLoadingStatus.id === pid ? { ...projectLoadingStatus, loading: true } : projectLoadingStatus;
-                });
-            });
-            await DeleteProject({
-                access_token: token,
-                pid: pid
-            });
-        } catch (err) {
-            setError(err as ErrorType);
-        }
-        await getAllProjects();
-    };
     return (
         <div className="self-center min-w-[75%]">
             <div className="flex justify-between">
