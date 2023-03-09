@@ -190,15 +190,12 @@ export function ProjectPage(props: IProjectPageProps) {
                         >
                             <MdRestartAlt size="50" />
                         </ActionIcon>
-                        {/* <ActionIcon
-                            onClick={() => {
-                                deleteProject(element.id);
-                            }}
-                            disabled={projectLoadingStatus.filter((project) => project.id === element.id)[0].loading}
-                        >
-                            <MdOutlineDelete size="50" />
-                        </ActionIcon> */}
-                        <DeleteConfirmationModal project_id={element.id} disabled={projectLoadingStatus.filter((project) => project.id === element.id)[0].loading} deleteProject={deleteProject} />
+                        <DeleteConfirmationModal 
+                            project_id={element.id} 
+                            project_name={element.name}
+                            disabled={projectLoadingStatus.filter((project) => project.id === element.id)[0].loading} 
+                            deleteProject={deleteProject} 
+                        />
                     </div>
                 </td>
             </tr>
