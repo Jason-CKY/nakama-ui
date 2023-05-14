@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Table, Avatar, Text, ActionIcon, Divider, Tooltip, Modal } from '@mantine/core';
+import { Button, Table, Avatar, Text, ActionIcon, Divider, Tooltip } from '@mantine/core';
 import { RiStarLine, RiFocusLine } from 'react-icons/ri';
 import { TbGitFork, TbGitMerge } from 'react-icons/tb';
-import { MdRestartAlt, MdOutlineDelete } from 'react-icons/md';
+import { MdRestartAlt } from 'react-icons/md';
 import { FiRefreshCcw } from 'react-icons/fi';
 
 import dayjs from 'dayjs';
@@ -17,11 +17,14 @@ import { IAuthContext } from '../oauth/Types';
 import { ProjectListSkeleton } from '../components/Skeleton';
 import { CreateProjectModalButton } from '../components/CreateProjectModal';
 import { DeleteConfirmationModal } from '../components/DeleteConfirmationModal';
+import { RapidIntegrationModal } from '../components/RapidIntegration';
+
 dayjs.extend(relativeTime);
 
-interface IProjectLoading {
+interface IProjectDetails {
     id: number;
     loading: boolean;
+    published: boolean;
 }
 
 export interface IProjectPageProps {}
@@ -29,7 +32,7 @@ export interface IProjectPageProps {}
 export function ProjectPage(props: IProjectPageProps) {
     const { token }: IAuthContext = useContext(AuthContext);
     const [hasLoaded, setHasLoaded] = useState(false);
-    const [projectLoadingStatus, setProjectLoadingStatus] = useState<IProjectLoading[]>([]);
+    const [projectDetails, setProjectDetails] = useState<IProjectDetails[]>([]);
     const [projects, setProjects] = useState<ProjectInterface[]>([]);
     const [error, setError] = useState<ErrorType>({
         status: 200,
@@ -41,9 +44,10 @@ export function ProjectPage(props: IProjectPageProps) {
             const allProjects = await GetProjectList(token);
             setProjects(allProjects);
             setHasLoaded(true);
-            setProjectLoadingStatus(
+            setProjectDetails(
                 allProjects.map((project) => {
-                    return { id: project.id, loading: false };
+                    // TODO: GET request to check if rapid service exists
+                    return { id: project.id, loading: false, published: false };
                 })
             );
         } catch (err) {
@@ -67,9 +71,9 @@ export function ProjectPage(props: IProjectPageProps) {
 
     const restartProject = async (pid: number) => {
         try {
-            setProjectLoadingStatus((oldProjectLoadingStatus) => {
-                return oldProjectLoadingStatus.map((projectLoadingStatus) => {
-                    return projectLoadingStatus.id === pid ? { ...projectLoadingStatus, loading: true } : projectLoadingStatus;
+            setProjectDetails((oldProjectDetails) => {
+                return oldProjectDetails.map((projectDetails) => {
+                    return projectDetails.id === pid ? { ...projectDetails, loading: true } : projectDetails;
                 });
             });
             await RestartProject({
@@ -84,9 +88,9 @@ export function ProjectPage(props: IProjectPageProps) {
 
     const deleteProject = async (pid: number) => {
         try {
-            setProjectLoadingStatus((oldProjectLoadingStatus) => {
-                return oldProjectLoadingStatus.map((projectLoadingStatus) => {
-                    return projectLoadingStatus.id === pid ? { ...projectLoadingStatus, loading: true } : projectLoadingStatus;
+            setProjectDetails((oldProjectDetails) => {
+                return oldProjectDetails.map((projectDetails) => {
+                    return projectDetails.id === pid ? { ...projectDetails, loading: true } : projectDetails;
                 });
             });
             await DeleteProject({
@@ -164,6 +168,10 @@ export function ProjectPage(props: IProjectPageProps) {
                 <td>
                     <div className="flex justify-end items-center">
                         <StatusIcon status={StatusEnum[element.status as keyof typeof StatusEnum]} size="50" />
+                        <RapidIntegrationModal 
+                            refreshProjectList={refreshProjectList}
+                            isPublished={projectDetails.filter((project) => project.id === element.id)[0].published}
+                        />
                         <Button
                             variant="default"
                             className="mx-1"
@@ -186,14 +194,14 @@ export function ProjectPage(props: IProjectPageProps) {
                             onClick={() => {
                                 restartProject(element.id);
                             }}
-                            disabled={projectLoadingStatus.filter((project) => project.id === element.id)[0].loading}
+                            disabled={projectDetails.filter((project) => project.id === element.id)[0].loading}
                         >
                             <MdRestartAlt size="50" />
                         </ActionIcon>
                         <DeleteConfirmationModal 
                             project_id={element.id} 
                             project_name={element.name}
-                            disabled={projectLoadingStatus.filter((project) => project.id === element.id)[0].loading} 
+                            disabled={projectDetails.filter((project) => project.id === element.id)[0].loading} 
                             deleteProject={deleteProject} 
                         />
                     </div>
