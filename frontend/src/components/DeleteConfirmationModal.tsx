@@ -40,14 +40,15 @@ export function DeleteConfirmationModal(props: IDeleteConfirmationModalProps) {
                     </Button>
                 </div>
             </Modal>
-            <ActionIcon
+            <Button
+                variant="default"
                 onClick={() => {
                     setOpened(true);
                 }}
                 disabled={props.disabled}
             >
-                <MdOutlineDelete size="50" />
-            </ActionIcon>
+                Delete
+            </Button>
         </div>
     );
 }

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Table, Avatar, Text, ActionIcon, Divider, Tooltip, Modal } from '@mantine/core';
+import { Button, Table, Avatar, Text, ActionIcon, Divider, Tooltip, Modal, Group } from '@mantine/core';
 import { RiStarLine, RiFocusLine } from 'react-icons/ri';
 import { TbGitFork, TbGitMerge } from 'react-icons/tb';
 import { MdRestartAlt, MdOutlineDelete } from 'react-icons/md';
@@ -164,38 +164,41 @@ export function ProjectPage(props: IProjectPageProps) {
                 <td>
                     <div className="flex justify-end items-center">
                         <StatusIcon status={StatusEnum[element.status as keyof typeof StatusEnum]} size="50" />
-                        <Button
-                            variant="default"
-                            className="mx-1"
-                            onClick={() => {
-                                window.location.href = `${element.web_url}/edit`;
-                            }}
-                        >
-                            Edit
-                        </Button>
-                        <Button
-                            variant="default"
-                            className="mx-1"
-                            onClick={() => {
-                                window.location.href = `${element.ingress_url}`;
-                            }}
-                        >
-                            View
-                        </Button>
-                        <ActionIcon
-                            onClick={() => {
-                                restartProject(element.id);
-                            }}
-                            disabled={projectLoadingStatus.filter((project) => project.id === element.id)[0].loading}
-                        >
-                            <MdRestartAlt size="50" />
-                        </ActionIcon>
-                        <DeleteConfirmationModal 
-                            project_id={element.id} 
-                            project_name={element.name}
-                            disabled={projectLoadingStatus.filter((project) => project.id === element.id)[0].loading} 
-                            deleteProject={deleteProject} 
-                        />
+                        <Group spacing="0">
+                            <Button
+                                variant="default"
+                                onClick={() => {
+                                    window.location.href = `${element.web_url}/edit`;
+                                }}
+                                disabled={projectLoadingStatus.filter((project) => project.id === element.id)[0].loading}
+                            >
+                                Edit
+                            </Button>
+                            <Button
+                                variant="default"
+                                onClick={() => {
+                                    window.location.href = `${element.ingress_url}`;
+                                }}
+                                disabled={projectLoadingStatus.filter((project) => project.id === element.id)[0].loading}
+                            >
+                                View
+                            </Button>
+                            <Button
+                                variant="default"
+                                onClick={()=> {
+                                    restartProject(element.id);
+                                }}
+                                disabled={projectLoadingStatus.filter((project) => project.id === element.id)[0].loading}
+                            >
+                                Restart
+                            </Button> 
+                            <DeleteConfirmationModal 
+                                project_id={element.id} 
+                                project_name={element.name}
+                                disabled={projectLoadingStatus.filter((project) => project.id === element.id)[0].loading} 
+                                deleteProject={deleteProject} 
+                            /> 
+                        </Group>
                     </div>
                 </td>
             </tr>
