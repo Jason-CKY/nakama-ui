@@ -19,7 +19,7 @@ const authConfig: TAuthConfig = {
     postLogin: () => window.location.replace(localStorage.getItem('preLoginPath') || ''),
     onRefreshTokenExpire: (event) => window.confirm('Session expired. Refresh page to continue using the site?') && event.login(),
     decodeToken: false,
-    scope: 'openid email profile api',
+    scope: 'profile api',
     autoLogin: false,
     flow: 'authorization_code'
 };
