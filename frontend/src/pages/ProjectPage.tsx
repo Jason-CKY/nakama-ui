@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Table, Avatar, Text, ActionIcon, Divider, Tooltip, Modal, Group } from '@mantine/core';
+import { Button, Table, Avatar, Text, ActionIcon, Divider, Tooltip, Modal, Group, Pagination } from '@mantine/core';
 import { RiStarLine, RiFocusLine } from 'react-icons/ri';
 import { TbGitFork, TbGitMerge } from 'react-icons/tb';
-import { MdRestartAlt, MdOutlineDelete } from 'react-icons/md';
 import { FiRefreshCcw } from 'react-icons/fi';
 
 import dayjs from 'dayjs';
@@ -35,7 +34,8 @@ export function ProjectPage(props: IProjectPageProps) {
         status: 200,
         data: {}
     });
-
+    const [activePage, setPage] = useState(1);
+    const projectsPerPage = 5;
     const getAllProjects = async () => {
         try {
             const allProjects = await GetProjectList(token);
@@ -225,8 +225,12 @@ export function ProjectPage(props: IProjectPageProps) {
                         <ProjectListSkeleton number={4} />
                     </tbody>
                 )}
-                {hasLoaded && <tbody>{rows}</tbody>}
+                {hasLoaded && <tbody>{rows.slice((activePage - 1)*projectsPerPage, activePage * projectsPerPage)}</tbody>}
             </Table>
+            <br />
+            <div className='flex place-content-end'>
+                <Pagination value={activePage} onChange={setPage} total={Math.ceil(projects.length / projectsPerPage)} />    
+            </div>
         </div>
     );
 }
